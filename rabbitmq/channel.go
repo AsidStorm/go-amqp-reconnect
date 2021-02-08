@@ -12,6 +12,8 @@ type Channel struct {
 	closed int32
 	mutex  *sync.Mutex
 
+	canceled int32
+
 	qos                  channelQos
 	autoDeletedQueues    []channelQueue
 	autoDeletedExchanges []channelExchange
@@ -97,7 +99,15 @@ func (ch *Channel) NotifyPublish(confirm chan amqp.Confirmation) chan amqp.Confi
 func (ch *Channel) Cancel(consumer string, noWait bool) error {
 	defer ch.mutex.Unlock()
 	ch.mutex.Lock()
-	return ch.Channel.Cancel(consumer, noWait)
+
+	err := ch.Channel.Cancel(consumer, noWait)
+	if err != nil {
+		return err
+	}
+
+	atomic.StoreInt32(&ch.canceled, 1)
+
+	return nil
 }
 
 func (ch *Channel) QueueInspect(name string) (amqp.Queue, error) {
@@ -328,7 +338,7 @@ func (ch *Channel) Consume(queue, consumer string, autoAck, exclusive, noLocal, 
 			// sleep before IsClose call. closed flag may not set before sleep.
 			time.Sleep(ReconnectDelay)
 
-			if ch.isClosed() {
+			if ch.isClosed() || ch.isCanceled() {
 				close(deliveries)
 
 				break
@@ -341,4 +351,8 @@ func (ch *Channel) Consume(queue, consumer string, autoAck, exclusive, noLocal, 
 
 func (ch *Channel) isClosed() bool {
 	return atomic.LoadInt32(&ch.closed) == 1
+}
+
+func (ch *Channel) isCanceled() bool {
+	return atomic.LoadInt32(&ch.canceled) == 1
 }
