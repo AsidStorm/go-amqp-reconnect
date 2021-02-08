@@ -320,6 +320,8 @@ func (ch *Channel) Consume(queue, consumer string, autoAck, exclusive, noLocal, 
 			}
 
 			for msg := range d {
+				// msg.Acknowledger = ch <- Possible race condition
+
 				deliveries <- msg
 			}
 
