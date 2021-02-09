@@ -2,8 +2,8 @@ package main
 
 import (
 	"flag"
+	"github.com/AsidStorm/go-amqp-reconnect/rabbitmq"
 	"github.com/streadway/amqp"
-	"go-amqp-reconnect/rabbitmq"
 	"log"
 	"sync"
 	"time"
