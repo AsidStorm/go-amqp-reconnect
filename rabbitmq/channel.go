@@ -14,9 +14,10 @@ type Channel struct {
 
 	canceled int32
 
-	qos                  channelQos
-	autoDeletedQueues    []channelQueue
-	autoDeletedExchanges []channelExchange
+	qos                      channelQos
+	autoDeletedQueues        []channelQueue
+	autoDeletedQueueBindings []queueBinding
+	autoDeletedExchanges     []channelExchange
 }
 
 type channelQos struct {
@@ -24,6 +25,9 @@ type channelQos struct {
 	prefetchCount int
 	prefetchSize  int
 	global        bool
+}
+
+type queueBinding struct {
 }
 
 type channelQueue struct {
