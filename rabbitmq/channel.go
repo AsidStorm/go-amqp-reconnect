@@ -28,6 +28,13 @@ type channelQos struct {
 }
 
 type queueBinding struct {
+	queueName    string
+	exchangeName string
+
+	key    string
+	noWait bool
+
+	args amqp.Table
 }
 
 type channelQueue struct {
@@ -123,6 +130,41 @@ func (ch *Channel) QueueInspect(name string) (amqp.Queue, error) {
 func (ch *Channel) QueueBind(name, key, exchange string, noWait bool, args amqp.Table) error {
 	defer ch.mutex.Unlock()
 	ch.mutex.Lock()
+
+	bindingRestored := false
+
+	for _, q := range ch.autoDeletedQueues {
+		if name == q.name {
+			ch.autoDeletedQueueBindings = append(ch.autoDeletedQueueBindings, queueBinding{
+				queueName:    name,
+				exchangeName: exchange,
+				key:          key,
+				noWait:       noWait,
+				args:         args,
+			})
+
+			bindingRestored = true
+
+			break
+		}
+	}
+
+	if !bindingRestored {
+		for _, e := range ch.autoDeletedExchanges {
+			if e.name == exchange {
+				ch.autoDeletedQueueBindings = append(ch.autoDeletedQueueBindings, queueBinding{
+					queueName:    name,
+					exchangeName: exchange,
+					key:          key,
+					noWait:       noWait,
+					args:         args,
+				})
+
+				break
+			}
+		}
+	}
+
 	return ch.Channel.QueueBind(name, key, exchange, noWait, args)
 }
 

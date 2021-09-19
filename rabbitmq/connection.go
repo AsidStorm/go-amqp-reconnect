@@ -211,6 +211,21 @@ func (c *Connection) Channel() (*Channel, error) {
 					continue
 				}
 
+				bindingsRestored := true
+
+				for _, b := range channel.autoDeletedQueueBindings {
+					if err := ch.QueueBind(b.queueName, b.key, b.exchangeName, b.noWait, b.args); err != nil {
+						debugf("channel recreate failed, unable to restore auto deleted queue or exchange binding, err: %v")
+						bindingsRestored = false
+						break
+					}
+				}
+
+				if !bindingsRestored {
+					ch.Close()
+					continue
+				}
+
 				channel.mutex.Lock()
 				channel.Channel = ch // Concurrency?
 				channel.mutex.Unlock()
