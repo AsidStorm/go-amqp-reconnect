@@ -3,13 +3,14 @@ package main
 import (
 	"context"
 	"flag"
-	"github.com/AsidStorm/go-amqp-reconnect/rabbitmq"
-	"github.com/streadway/amqp"
 	"log"
 	"os"
 	"os/signal"
 	"syscall"
 	"time"
+
+	"github.com/AsidStorm/go-amqp-reconnect/rabbitmq"
+	amqp "github.com/rabbitmq/amqp091-go"
 )
 
 func main() {

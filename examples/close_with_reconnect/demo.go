@@ -2,11 +2,12 @@ package main
 
 import (
 	"flag"
-	"github.com/AsidStorm/go-amqp-reconnect/rabbitmq"
-	"github.com/streadway/amqp"
 	"log"
 	"sync"
 	"time"
+
+	"github.com/AsidStorm/go-amqp-reconnect/rabbitmq"
+	amqp "github.com/rabbitmq/amqp091-go"
 )
 
 func main() {
