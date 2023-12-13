@@ -216,7 +216,7 @@ func (c *Connection) Channel() (*Channel, error) {
 
 				for _, b := range channel.autoDeletedQueueBindings {
 					if err := ch.QueueBind(b.queueName, b.key, b.exchangeName, b.noWait, b.args); err != nil {
-						debugf("channel recreate failed, unable to restore auto deleted queue or exchange binding, err: %v")
+						debugf("channel recreate failed, unable to restore auto deleted queue or exchange binding, err: %v", err)
 						bindingsRestored = false
 						break
 					}
