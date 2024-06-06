@@ -1,6 +1,6 @@
 # go-amqp-reconnect
 
-auto reconnecting library for https://github.com/streadway/amqp, that doesn't reconnect on server shutdown
+auto reconnecting library for https://github.com/rabbitmq/amqp091-go, that doesn't reconnect on server shutdown
 To simply developers, here is auto reconnect wrap with detail comments.
 
 This library based on https://github.com/isayme/go-amqp-reconnect, but also supports some external methods.

@@ -2,11 +2,12 @@ package rabbitmq
 
 import (
 	"crypto/tls"
-	"github.com/streadway/amqp"
 	"net"
 	"sync"
 	"sync/atomic"
 	"time"
+
+	amqp "github.com/rabbitmq/amqp091-go"
 )
 
 var Debug bool
