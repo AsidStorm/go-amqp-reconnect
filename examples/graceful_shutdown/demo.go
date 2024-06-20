@@ -3,13 +3,13 @@ package main
 import (
 	"context"
 	"flag"
-	"github.com/AsidStorm/go-amqp-reconnect/rabbitmq"
-	"github.com/streadway/amqp"
 	"log"
 	"os"
 	"os/signal"
 	"syscall"
 	"time"
+
+	"github.com/AsidStorm/go-amqp-reconnect/rabbitmq"
 )
 
 func main() {
@@ -56,7 +56,7 @@ func main() {
 			case <-ctx.Done():
 				stop = true
 			default:
-				err := sendCh.Publish("", "test-auto-delete", false, false, amqp.Publishing{
+				err := sendCh.Publish("", "test-auto-delete", false, false, rabbitmq.Publishing{
 					ContentType: "text/plain",
 					Body:        []byte(time.Now().String()),
 				})

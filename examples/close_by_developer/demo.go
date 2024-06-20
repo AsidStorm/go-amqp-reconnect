@@ -2,8 +2,9 @@ package main
 
 import (
 	"flag"
+
 	"github.com/AsidStorm/go-amqp-reconnect/rabbitmq"
-	"github.com/streadway/amqp"
+
 	"log"
 	"sync"
 	"time"
@@ -37,7 +38,7 @@ func main() {
 
 	go func() {
 		for {
-			err := sendCh.Publish("", "test", false, false, amqp.Publishing{
+			err := sendCh.Publish("", "test", false, false, rabbitmq.Publishing{
 				ContentType: "text/plain",
 				Body:        []byte(time.Now().String()),
 			})

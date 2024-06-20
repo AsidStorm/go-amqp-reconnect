@@ -8,6 +8,8 @@ import (
 	amqp "github.com/rabbitmq/amqp091-go"
 )
 
+type Publishing amqp.Publishing
+
 type Channel struct {
 	*amqp.Channel
 	closed int32
@@ -248,10 +250,10 @@ func (ch *Channel) Get(queue string, autoAck bool) (msg amqp.Delivery, ok bool, 
 	return ch.Channel.Get(queue, autoAck)
 }
 
-func (ch *Channel) Publish(exchange, key string, mandatory, immediate bool, msg amqp.Publishing) error {
+func (ch *Channel) Publish(exchange, key string, mandatory, immediate bool, msg Publishing) error {
 	defer ch.mutex.Unlock()
 	ch.mutex.Lock()
-	return ch.Channel.Publish(exchange, key, mandatory, immediate, msg)
+	return ch.Channel.Publish(exchange, key, mandatory, immediate, amqp.Publishing(msg))
 }
 
 func (ch *Channel) ExchangeUnbind(destination, key, source string, noWait bool, args amqp.Table) error {

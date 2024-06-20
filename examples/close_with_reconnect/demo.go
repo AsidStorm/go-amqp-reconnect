@@ -2,11 +2,11 @@ package main
 
 import (
 	"flag"
-	"github.com/AsidStorm/go-amqp-reconnect/rabbitmq"
-	"github.com/streadway/amqp"
 	"log"
 	"sync"
 	"time"
+
+	"github.com/AsidStorm/go-amqp-reconnect/rabbitmq"
 )
 
 func main() {
@@ -42,7 +42,7 @@ func main() {
 
 	go func() {
 		for {
-			err := sendCh.Publish("", "test-auto-delete", false, false, amqp.Publishing{
+			err := sendCh.Publish("", "test-auto-delete", false, false, rabbitmq.Publishing{
 				ContentType: "text/plain",
 				Body:        []byte(time.Now().String()),
 			})
