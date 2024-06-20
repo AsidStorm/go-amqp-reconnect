@@ -1,7 +1,8 @@
-module github.com/AsidStorm/go-amqp-reconnect
+module go-amqp-reconnect
 
 go 1.22.1
 
-require github.com/AsidStorm/go-amqp-reconnect/rabbitmq v0.0.0-20210919084342-5aec9a9708ef
-
-require github.com/rabbitmq/amqp091-go v1.10.0 // indirect
+require (
+	github.com/AsidStorm/go-amqp-reconnect/rabbitmq v0.0.0-20240620183305-8245dee5a83e
+	github.com/rabbitmq/amqp091-go v1.10.0 // indirect
+)

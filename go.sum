@@ -1,3 +1,5 @@
+github.com/AsidStorm/go-amqp-reconnect/rabbitmq v0.0.0-20240620183305-8245dee5a83e h1:hfHG8bidmlOTLV6yaIjbzvQd3B51nreRKCqIk+C4E9U=
+github.com/AsidStorm/go-amqp-reconnect/rabbitmq v0.0.0-20240620183305-8245dee5a83e/go.mod h1:ZVSsaIqCl65EfCu122QLzkHnkmKVjlw9+fewXM3HGqE=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/kr/pretty v0.1.0/go.mod h1:dAy3ld7l9f0ibDNOQOHHMYYIIbhfbHSm3C4ZsoJORNo=
