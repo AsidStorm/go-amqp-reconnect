@@ -1,4 +1,4 @@
-module github.com/AsidStorm/go-amqp-reconnect/rabbitmq
+module github.com/kepeder/go-amqp-reconnect/rabbitmq
 
 go 1.22.1
 
