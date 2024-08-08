@@ -45,7 +45,7 @@ func DialConfig(url string, config amqp.Config) (*Connection, error) {
 				// wait 1s for reconnect
 				time.Sleep(ReconnectDelay)
 
-				conn, err := amqp.Dial(url)
+				conn, err := amqp.DialConfig(url, config)
 				if err != nil {
 					debugf("reconnect failed, err: %v", err)
 					continue
